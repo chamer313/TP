@@ -1,0 +1,18 @@
+read inp
+read outp
+find $inp -type f -name "*.txt" | while read file;
+   do
+  n=$(basename "$file")
+  w="$outp/$n"
+  
+  if [ -f "$w" ]; then
+    c=1
+    while [ -f "$w" ]; do
+      nn="${n%.*}_$c.${n##*.}"
+      w="$outp/$nn"
+      c+=1
+    done
+  fi
+  
+  cp "$file" "$w"
+done
